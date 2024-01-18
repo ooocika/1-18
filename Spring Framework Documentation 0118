@@ -1,0 +1,420 @@
+public class inventor {
+
+  private String name;
+  private String nationality;
+  private String[] inventions;
+  private Date birthdate;
+  private PlaceOfBirth placeOfBirth;
+
+  public Inventor(String name, String nationality){
+    GregorianCalendar c  = new GregorianCalendar();
+    this.name = name;
+    this.nationality = nationality;
+    this.birthdate = c.getTime();
+  }
+
+  public Inventor(String name, String nationality, Date birthdate){
+    this.name = name;
+    this.nationality = nationality;
+    this.birthdate = birthdate;
+  }
+
+  public Inventor(){
+    
+  }
+
+}
+
+public String getName()
+  return name;
+}
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+public String getNationality()
+  return nationality;
+}
+
+public void setNationality(String nationality)
+  this.nationality = nationality;
+}
+
+public Date getBirthdate()
+  return birthdate;
+}
+
+  public void setBirtdate(Date birthdate) {
+    this.birthdate = birthdate;
+  }
+
+  public PlaceOfBirth getPlaceOfBirth() {
+    return placeOfBirth;
+  }
+
+  public void setPlaceOfBirth(PlaceOfBirth placeOfBirth) {
+    this.placeOfBirth = placeOfBirth;
+  }
+
+  public void setInvetions(String[] inventions) {
+    this.inventions = inventions;
+  }
+
+  public String[] getInventions() {
+    return inventions;
+  }
+}
+
+//
+public class PlaceOfBirth {
+
+  private String country;
+  private String city;
+
+  public PlaceOfBirth(String city) {
+    this.city = city;
+  }
+
+  public PlaceOfBirth(String city, String country) {
+    this(city);
+    this.country = country;
+  }
+
+  public String getCity() {
+    return city;
+  }
+
+  public void setCity(String s) {
+    return city;
+  }
+
+  public void getCountry(){
+    return country
+  }
+
+  public viod setCountry(String country) {
+    this.country = country;
+  }
+
+}
+
+//
+public class Society {
+  private String name;
+
+  public static String Advisors = "Advisors";
+  public static String President = president;
+
+  private List<Inventor> members = new ArrayList<Inventor>();
+  private Map officers = new HashMap();
+
+  public List getMembers() {
+    return members;
+
+  }
+
+  public Map getOfficers() {
+    return officers;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name){}this.name=name;
+
+}
+
+public boolean isMember(String name){
+  for(Inventor inventor: members){
+    if(inventor.getName().equals(name)){
+      return true;
+    }
+  }
+  return false;
+  
+}
+}
+//
+
+class Society {
+
+  val Advisors = "advisors"
+  val President = "president"
+
+  var name:String?=null
+
+  val members = ArrayList<Inventor>()
+  val officers = MapOf<Any, Any>()
+
+  fung isMember(name: String) : Boolean{
+    for(inventor in members){
+      if(inventor.name == name){
+        return true
+      }
+    
+    }
+  return false;
+  }
+
+}
+
+  //
+  @Configuration
+  @EnableAspectJAutoProxy
+  public class AppConfig {
+
+  }
+
+  //
+
+  @Aspect
+  public class NotVeryUsefulAspect {
+
+  }
+
+  //
+  @Pointcut("execution(* transfer(..))")
+  private void anyOldTransfer() {
+  }
+
+  //
+bean (idOrNameOfBean)
+  //
+  @Pointcut("execution(public * *(..))")
+  private void anyPublicOperation() {
+  }
+
+  @Pointcut("within(com.xyz.myapp.trading..*)")
+  private void inTrading() {
+  }
+
+  @Pointcut("anyPublicOperation() && inTrading()")
+  private void tradingOperation() {
+  }
+
+  //
+  @Aspect
+  public class CommonPointcuts {
+
+    @Pointcut("within(com.xyz.myapp.web..*)")
+    public void inWebLayer() {
+    }
+
+    @Pointcut("within(com.xyz.myapp.service..*)")
+    public void inServiceLayer() {
+    }
+
+    @Pointcut("within(com.xyz.myapp.dao..*)")
+    public void inDataAccessLayer() {
+    }
+
+    @Pointcut("execution(*com.xyz.myapp.service.*.*(..))")
+    public void businessService() {
+    }
+
+    @Pointcut("execution(*com.xyz.myapp.dao.*.*(..))")
+    public void dataAccessOperation() {
+    }
+  }
+
+  //
+  @Aspect
+  public class BeforeExample {
+
+    @Before("com.xyz.myapp.CommonPointcuts.dataAccessOperation.()")
+    public void doAccessCheck() {
+
+    }
+  }
+
+  //
+  @Aspect
+  public class BeforeExample {
+
+    @Before("execution(* com.xyz.myapp.dao.*.*(..))")
+    public void doAccessCheck() {
+
+    }
+  }
+
+  //
+  @Aspect
+  public class AfterReturningExample {
+
+    @AfterReturning(" com.xyz.myapp.CommonPointcuts.dataAccessOperation()")
+    public void doAccessCheck() {
+
+    }
+
+  }
+  //
+
+  @Aspect
+  public class AfterReturningExample {
+
+    @AfterReturning(pointcut = "com.xyz.myapp.CommonPointcuts.dataAccessOperation()", returning = "retVal")
+    public void doAccessCheck(Object retVal) {
+
+    }
+
+  }
+
+  //
+  @Aspect
+  public class AfterThrowingExample {
+
+    @AfterThrowing("com.xyz.myapp.CommonPointcuts.dataAccessOperation()")
+    public void doRecoveryActions() {
+
+    }
+  }
+
+  //
+  @Aspect
+  public class AfterThrowingExample {
+
+    @AfterThrowing(
+      pointcut ="com.xyz.myapp.CommonPointcuts.dataAccessOperation()",
+      throwing = "ex")
+    public void doRecoveryActions(DataAccessException ex)
+  }
+  }
+
+  //
+  @Aspect
+  public class AfterFinallyExample {
+
+    @After("com.xyz.myapp.CommonPointcuts.dataAccessOperation()")
+    public void doReleaseLock() {
+
+    }
+  }
+
+  //
+  @Aspect
+  public class AroundExample {
+
+    @Around("com.xyz.myapp.CommonPointcuts.businessService()")
+    public Object doBasicProfiling(ProceedingJoinPoint pjp) throws Throwable {
+
+      Object retVal = pjp.proceed();
+      return retVal;
+    }
+  }
+
+  //
+  @Before("com.xyz.myapp.CommonPointcuts.dataAccessOperation()&& args(account,..)")
+  public void validateAccount(Account account) {
+
+  }
+
+  //
+  @Pointcut("com.xyz.myapp.CommonPointcuts.dataAccessOperation() &&args(account,..)")
+  private void accountDataAccessOperation(Account account) {
+  }
+
+  @Before("accountDataAccessOperation(account)")
+  public void validateAccount(Account account) {
+
+  }
+  //
+
+  @Retention(RetentionPolicy.RUNTIME)
+  @Target(ElementType.METHOD)
+  public @interface Auditable {
+    AuditCode value();
+  }
+
+  //
+  @Before("com.xyz.lib.Pointcuts.anyPublicMethod() && annotation(auditable)")
+  public void audit(Auditable auditable) {
+    AuditCode code = auditable.value();
+
+  }
+
+  //
+  public interface Sample<T> {
+    void sampleGenericMethod(T param);
+
+    void sampleGenericCollectionMethod(Collection<T> param);
+
+  }
+
+  //
+  @Befor("execution(*..Sample+sampleGenericMethod(*)) && args(param)")
+  public void beforeSampleMethod(MyType param) {
+
+  }
+
+  //
+  @Befor("execution(*..Sample+sampleGenericCollectionMethod(*)) && args(param)")
+  public void beforeSampleMethod(Collection<MyType> param) {
+
+  }
+  //
+
+@Before(value = "com.xyz.lib.Pointcuts.anyPublicMethod() && target(bean) &&
+        @annotation(auditable)",
+        argNames = "bean, auditable")
+
+  public void audit(Object bean, Auditable auditable){
+  AuditCode code = auditable.value();
+  }
+
+  //
+
+@Before(value = "com.xyz.lib.Pointcuts.anyPublicMethod() && target(bean) &&
+@annotation(auditable)",
+        argNames = "bean, auditable")
+public void audit(JoinPoint jp, Object bean, Auditable auditable){
+  AuditCode code = auditable.value();
+  
+}
+
+  @Before("com.xyz.lib.Pointcuts.anyPublicMethod() ")
+  public void audit(JoinPoint jp) {
+
+  }
+
+  //
+  @Around("execution(List<Account> find*(..)) &&" +
+      "com.xyz.myapp.CommonPointcuts.inDataAccessLayer()&&" +
+      "args(accountHolderNamePattern)")
+
+  public Object preProcessOueryPattern(ProceedingJoinPoint pjp,
+      String accountHolderNamePattern) throws Throwable {
+    return pjp.proceed(new Object[] { newPattern });
+  }
+
+  //
+  @Aspect
+  public class UsageTraking {
+
+    @DeclareParents(value = "com.xyz.myapp.service.*+", defaultImpl = DefaultUsageTracked.class)
+    public static UsageTracked mixin;
+
+    @Before("com.xyz.myapp.CommonPointcuts.businessService()&&this(usageTracked)")
+    public void recordUsage(UsageTracked usageTracked) {
+      usageTracked.incrementUseCount();
+    }
+
+  }//
+
+  UsageTracked usageTracked = (UsageTracked) context.getBean("myService");
+
+  //
+@Aspect("perthis(com.xyz.CommonPointcuts.businessService())")
+  public class MyAspect{
+
+    private int someState;
+
+    @Before("com.xyz.myapp.CommonPointcuts.businessService()")
+
+    public void recordServiceUsage(){
+      
+    }
+  }
+
+//352P
